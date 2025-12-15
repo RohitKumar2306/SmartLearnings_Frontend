@@ -1,0 +1,147 @@
+/* src/pages/DashboardPage.css */
+
+.dashboard-root {
+    padding: 24px 0 40px;
+}
+
+/* PAGE HEADER */
+
+.dashboard-header {
+    color: #e5e7eb;
+}
+
+.dashboard-header-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+.dashboard-header-subtitle {
+    font-size: 0.95rem;
+    color: #9ca3af;
+}
+
+/* pill on top-right */
+.dashboard-pill {
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.5);
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    color: #e5e7eb;
+    background: transparent;
+}
+
+/* CARDS (white, like screenshot) */
+
+.ls-card {
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+    background-color: #ffffff;
+    color: #111827;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+    transition: transform 0.12s ease-out, box-shadow 0.12s ease-out,
+    border-color 0.12s ease-out;
+}
+
+.ls-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.35);
+    border-color: #cbd5f5;
+}
+
+.ls-card-title {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.ls-card-subtext {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+/* STAT BOXES INSIDE OVERVIEW */
+
+.stat-box {
+    border-radius: 10px;
+    background-color: #111827;
+    color: #f9fafb;
+    padding: 10px 12px;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #9ca3af;
+}
+
+.stat-value {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* PROGRESS BAR */
+
+.ls-progress {
+    height: 6px;
+    background-color: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.ls-progress-bar {
+    height: 100%;
+    background-color: #16a34a; /* green */
+}
+
+/* COURSES LIST */
+
+.course-item {
+    border-bottom: 1px solid #e5e7eb;
+    padding: 10px 0;
+    transition: background-color 0.1s ease-out;
+}
+
+.course-item:last-child {
+    border-bottom: none;
+}
+
+.course-item:hover {
+    background-color: #f3f4f6;
+}
+
+.course-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.course-status-badge {
+    font-size: 0.75rem;
+}
+
+/* RECENT ACTIVITY */
+
+.activity-description {
+    font-size: 0.9rem;
+    color: #111827;
+}
+
+.activity-timestamp {
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+/* BUTTON TWEAKS */
+
+.btn-ls-primary {
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding-inline: 18px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 992px) {
+    .dashboard-header-title {
+        font-size: 1.5rem;
+    }
+}

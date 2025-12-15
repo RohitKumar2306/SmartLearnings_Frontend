@@ -6,12 +6,18 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
 
-    /* Bundler mode */
+    /* Bundler mode (Vite) */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+
+    /* React JSX support */
+    "jsx": "react-jsx",
+
+    /* Optional but recommended */
+    "types": ["react", "react-dom"],
 
     /* Linting */
     "strict": true,

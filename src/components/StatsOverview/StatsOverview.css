@@ -1,0 +1,4 @@
+.card-group:hover {
+    transform: scale(1.2);
+    transition: transform 0.9s ease;
+}

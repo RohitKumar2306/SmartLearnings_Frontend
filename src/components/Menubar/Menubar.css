@@ -1,0 +1,94 @@
+/* ======= NAVBAR (top menu) ======= */
+
+.ls-navbar {
+    background-color: #020617; /* same dark background */
+    border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+/* Brand / logo text */
+.ls-navbar-brand {
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: #e5e7eb !important;
+}
+
+/* Base nav links */
+.ls-nav-link {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #9ca3af !important;
+    padding-inline: 0.9rem;
+    border-radius: 999px;
+    transition: background-color 0.15s ease, color 0.15s ease,
+    transform 0.1s ease;
+}
+
+/* Hover state */
+.ls-nav-link:hover {
+    color: #e5e7eb !important;
+    background-color: rgba(148, 163, 184, 0.22);
+    transform: translateY(-1px);
+}
+
+/* Active item (pill style like your UI) */
+.ls-nav-link-active {
+    color: #E1E9B4 !important;
+    background-color: #e5e7eb;
+}
+
+.ls-avatar-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #6366f1, #22c55e);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Toggler style for dark background */
+.ls-navbar-toggler {
+    padding: 4px 8px;
+}
+
+.ls-navbar-toggler-icon {
+    filter: invert(1);
+}
+
+.profile-img {
+    height: 3vH;
+    width: 3vH;
+}
+
+.home-img {
+    height: 3vH;
+    width: 3vH;
+}
+
+/* Dropdown menu custom styling */
+.custom-dropdown-menu {
+    background: #1b1e27;          /* Dark card background */
+    border-radius: 12px;          /* Smooth rounded corners */
+    padding: 12px 0;
+    border: 1px solid #2a2d36;    /* Subtle border */
+    min-width: 160px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* Dropdown items */
+.custom-dropdown-item {
+    padding: 10px 18px;
+    color: black;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.16s ease, color 0.16s ease;
+}
+
+/* Hover effect */
+.custom-dropdown-item:hover {
+    background: #6B8790;
+    color: #fff;
+}

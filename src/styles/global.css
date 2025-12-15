@@ -1,0 +1,33 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+/* Common background for the entire site */
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+    /* Nice dark blue gradient */
+    background: radial-gradient(circle at top, #0f172b 30%, #020617 55%, #000 100%);
+    color: #e5e7eb;
+}
+
+/* React root fills viewport */
+#root {
+    min-height: 100vh;
+}
+
+/* Optional app wrapper for future layout (navbar/sidebar etc.) */
+.app-shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
