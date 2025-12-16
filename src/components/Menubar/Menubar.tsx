@@ -1,15 +1,27 @@
 // src/components/layout/MainNavbar.tsx
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useContext } from "react";
+import { NavLink, useNavigate } from 'react-router-dom';
 import profileImg from "../../assets/coding.png";
 import homeImg from "../../assets/home.png";
 import "./Menubar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import toast from 'react-hot-toast';
+import { AppContext } from '../../context/AppContext.tsx';
 
 interface MainNavbarProps {}
 
 const MainNavbar: React.FC<MainNavbarProps> = () => {
+
+  const navigate = useNavigate();
+  const {logout} = useContext(AppContext);
+
+  const handleLogout = () => {
+    logout();
+    toast.success("Logout successfully");
+    navigate("/login");
+  }
+
   return (
     <nav className="navbar navbar-expand-lg ls-navbar mb-3">
       <div className="container">
@@ -114,7 +126,11 @@ const MainNavbar: React.FC<MainNavbarProps> = () => {
                 <div className="custom-dropdown-item">Settings</div>
               </li>
               <li>
-                <div className="custom-dropdown-item">Logout</div>
+                <div
+                  className="custom-dropdown-item"
+                  onClick={handleLogout}>
+                  Logout
+                </div>
               </li>
             </ul>
           </div>

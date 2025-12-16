@@ -8,9 +8,11 @@ export interface AuthState {
 export interface AppContextValue {
   auth: AuthState;
   setAuthData: (token: string | null, role: string | null) => void;
+  logout: () => void;
 }
 
 export const AppContext = createContext<AppContextValue>({
   auth: { token: null, role: null },
   setAuthData: () => {},
+  logout: () => {},
 });

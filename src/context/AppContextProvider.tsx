@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { AppContext, AppContextValue, AuthState } from './AppContext';
 
 interface AppContextProviderProps {
@@ -8,25 +8,40 @@ interface AppContextProviderProps {
 export const AppContextProvider: React.FC<AppContextProviderProps> = ({
                                                                         children,
                                                                       }) => {
-  const [auth, setAuth] = useState<AuthState>({ token: null, role: null });
+  const [auth, setAuth] = useState<AuthState>({
+    token: localStorage.getItem("token"),
+    role: localStorage.getItem("role"),
+  });
 
   const setAuthData = (token: string | null, role: string | null) => {
     setAuth({ token, role });
+    if (token && role) {
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", role);
+    } else {
+      localStorage.removeItem("token");
+      localStorage.removeItem("role");
+    }
   };
 
-  // Restore auth from localStorage (similar to your previous useEffect)
-  useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    const storedRole = localStorage.getItem("role");
-    if (storedToken && storedRole) {
-      setAuth({ token: storedToken, role: storedRole });
-    }
-  }, []);
+  const logout = () => {
+    // clear storage
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+
+    // clear auth state
+    setAuth({ token: null, role: null });
+  };
 
   const value: AppContextValue = {
     auth,
     setAuthData,
+    logout,
   };
 
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider value={value}>
+      {children}
+    </AppContext.Provider>
+  );
 };
