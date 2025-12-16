@@ -10,9 +10,11 @@ export interface SignUpFormValues {
 
 interface SignUpFormProps {
   onSubmit?: (values: SignUpFormValues) => void;
+  loading?: boolean;
+  serverError?: string | null;
 }
 
-const SignUp: React.FC<SignUpFormProps> = ({ onSubmit }) => {
+const SignUp: React.FC<SignUpFormProps> = ({ onSubmit, loading = false, serverError }) => {
   const [values, setValues] = useState<SignUpFormValues>({
     fullName: "",
     email: "",
@@ -150,16 +152,17 @@ const SignUp: React.FC<SignUpFormProps> = ({ onSubmit }) => {
         </div>
       </div>
 
-      {error && (
-        <p className="ls-error-text mb-2">{error}</p>
+      {error || serverError && (
+        <p className="ls-error-text mb-2">{error || serverError}</p>
       )}
 
       {/* Submit */}
       <button
         type="submit"
         className="btn btn-primary w-100 ls-btn-primary"
+        disabled={loading}
       >
-        Create account
+        {loading ? "Creating account..." : "Create account"}
       </button>
     </form>
   );
