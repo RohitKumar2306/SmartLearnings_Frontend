@@ -1,82 +1,120 @@
 // src/pages/DashboardPage.tsx
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import "./Dashboard.css";
 import StatsOverview from "../../components/StatsOverview/StatsOverview.tsx";
 import CurrentCourseCard from "../../components/CurrentCourseCard/CurrentCourseCard.tsx";
 import CoursesList from "../../components/CoursesList/CoursesList.tsx";
 import RecentActivity from "../../components/RecentActivity/RecentActivity.tsx";
-
 import {
-  ActivityItem,
-  CourseSummary,
   DashboardStats,
+  StudentDashboardResponse,
+  CourseSummary
 } from "../../types/dashboard.ts";
-
-const mockStats: DashboardStats = {
-  coursesInProgress: 2,
-  lessonsCompleted: 18,
-  quizzesTaken: 7,
-};
-
-const mockCurrentCourse: CourseSummary | null = {
-  id: 1,
-  title: "Introduction to Data Structures",
-  progress: 42,
-  status: "IN_PROGRESS",
-};
-
-const mockCourses: CourseSummary[] = [
-  {
-    id: 1,
-    title: "Introduction to Data Structures",
-    progress: 42,
-    status: "IN_PROGRESS",
-  },
-  {
-    id: 2,
-    title: "React Basics – Components & State",
-    progress: 89,
-    status: "IN_PROGRESS",
-  },
-  {
-    id: 3,
-    title: "Java Spring Boot – REST APIs",
-    progress: 100,
-    status: "COMPLETED",
-  },
-];
-
-const mockActivity: ActivityItem[] = [
-  {
-    id: 1,
-    description: "Completed lesson: Arrays – Basics",
-    timestamp: "Today, 10:15 AM",
-  },
-  {
-    id: 2,
-    description: "Scored 80% in Quiz: Linked Lists",
-    timestamp: "Yesterday, 9:02 PM",
-  },
-  {
-    id: 3,
-    description: "Enrolled in course: Java Spring Boot – REST APIs",
-    timestamp: "2 days ago",
-  },
-];
+import { fetchStudentDashboard} from "../../service/DashboardService.ts"
 
 const DashboardPage: React.FC = () => {
-  const handleContinueCourse = (courseId: number) => {
-    console.log("Continue course", courseId);
+
+  const [data, setData] = useState<StudentDashboardResponse | null>(null);
+  const [loading, setLoading] = useState<boolean | null>(true);
+  const [error, setError] = useState<string | null>(null);
+
+
+  useEffect(() => {
+    const loadDashboard = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const response = await fetchStudentDashboard();
+        setData(response.data);
+      } catch (err: any) {
+        console.error("Failed to load dashboard:", err);
+        setError(
+          err?.response?.data?.message || "Unable to load dashboard data."
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadDashboard();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="ls-page">
+        <div className="container py-4">
+          <p className="text-muted">Loading your dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !data) {
+    return (
+      <div className="ls-page">
+        <div className="container py-4">
+          <div className="alert alert-danger">
+            {error || "No dashboard data available."}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // StatsOverview expects "stats"
+  const stats: DashboardStats = data.overview;
+
+  // CurrentCourseCard: adapt from continueLearning card
+  const currentCourse: CourseSummary | null = data.continueLearning
+    ? (() => {
+      // find full course info (status, lessons) from list by id
+      const fromList = data.courses.find(
+        (c) => c.courseId === data.continueLearning!.courseId
+      );
+
+      return {
+        courseId: data.continueLearning.courseId,
+        courseTitle: data.continueLearning.courseTitle,
+        status: fromList?.status ?? "IN_PROGRESS",
+        progressPercent: data.continueLearning.progressPercent,
+        lessonsCompleted: fromList?.lessonsCompleted ?? 0,
+        totalLessons: fromList?.totalLessons ?? 0,
+      };
+    })()
+    : null;
+
+  // CoursesList: adapt from data.courses
+  const courses = data.courses.map((c) => ({
+    // again, adjust keys to match CoursesList's props
+    courseId: c.courseId,
+    courseTitle: c.courseTitle,
+    status: c.status,
+    progressPercent: c.progressPercent,
+    lessonsCompleted: c.lessonsCompleted,
+    totalLessons: c.totalLessons,
+  }));
+
+  // RecentActivity: you can pass through directly or map if needed
+  const activity = data.recentActivity;
+
+  // Handlers – keep your existing implementations
+  const handleContinueCourse = () => {
+    // later: route to current course page
+    console.log("Continue course clicked");
   };
 
   const handleBrowseCourses = () => {
-    console.log("Browse courses");
+    // later: route to course catalog
+    console.log("Browse courses clicked");
   };
 
-  const handleSelectCourse = (courseId: number) => {
-    console.log("Go to course", courseId);
+  const handleSelectCourse = (courseId: string) => {
+    // later: route to /courses/:id
+    console.log("Selected course:", courseId);
   };
 
+  // ---- your original JSX, now using dynamic data instead of mocks ----
   return (
     <div className="dashboard-root">
       <div className="container">
@@ -95,11 +133,11 @@ const DashboardPage: React.FC = () => {
         {/* Top: overview + current course */}
         <div className="row g-3 mb-3">
           <div className="col-12 col-lg-4">
-            <StatsOverview stats={mockStats} />
+            <StatsOverview stats={stats} />
           </div>
           <div className="col-12 col-lg-8">
             <CurrentCourseCard
-              course={mockCurrentCourse}
+              course={currentCourse}
               onContinue={handleContinueCourse}
               onBrowseCourses={handleBrowseCourses}
             />
@@ -110,7 +148,7 @@ const DashboardPage: React.FC = () => {
         <div className="row g-3 mb-3">
           <div className="col-12">
             <CoursesList
-              courses={mockCourses}
+              courses={courses}
               onSelectCourse={handleSelectCourse}
             />
           </div>
@@ -119,7 +157,7 @@ const DashboardPage: React.FC = () => {
         {/* Activity */}
         <div className="row g-3">
           <div className="col-12">
-            <RecentActivity items={mockActivity} />
+            <RecentActivity items={activity} />
           </div>
         </div>
       </div>

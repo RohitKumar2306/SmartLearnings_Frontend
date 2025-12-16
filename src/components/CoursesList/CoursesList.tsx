@@ -1,17 +1,17 @@
 // src/components/dashboard/CoursesList.tsx
 import React from "react";
-import { CourseSummary } from "../../types/dashboard";
+import { CourseSummary } from "../../types/dashboard.ts";
 import ProgressBar from "../ProgressBar/ProgressBar.tsx";
 
 interface CoursesListProps {
   courses: CourseSummary[];
-  onSelectCourse?: (courseId: number) => void;
+  onSelectCourse?: (courseId: string) => void;
 }
 
 const CoursesList: React.FC<CoursesListProps> = ({
-                                                   courses,
-                                                   onSelectCourse,
-                                                 }) => (
+  courses,
+  onSelectCourse,
+}) => (
   <section className="card card-glass text-light">
     <div className="card-body">
       <h2 className="card-title h6 mb-3 text-dark">Your Courses</h2>
@@ -24,32 +24,32 @@ const CoursesList: React.FC<CoursesListProps> = ({
         <ul className="list-unstyled mb-0">
           {courses.map((course) => (
             <li
-              key={course.id}
+              key={course.courseId}
               className="py-2 border-bottom border-secondary-subtle text-muted"
-              style={{ cursor: onSelectCourse ? "pointer" : "default" }}
-              onClick={() => onSelectCourse && onSelectCourse(course.id)}
+              style={{ cursor: onSelectCourse ? 'pointer' : 'default' }}
+              onClick={() => onSelectCourse && onSelectCourse(course.courseId)}
             >
               <div className="d-flex justify-content-between align-items-center mb-1">
-                <span className="fw-semibold small">{course.title}</span>
+                <span className="fw-semibold small">{course.courseTitle}</span>
                 <span
                   className={`badge rounded-pill text-capitalize ${
-                    course.status === "IN_PROGRESS"
-                      ? "bg-primary-subtle text-primary-emphasis"
-                      : course.status === "COMPLETED"
-                        ? "bg-success-subtle text-success-emphasis"
-                        : "bg-secondary-subtle text-secondary-emphasis"
+                    course.status === 'IN_PROGRESS'
+                      ? 'bg-primary-subtle text-primary-emphasis'
+                      : course.status === 'COMPLETED'
+                        ? 'bg-success-subtle text-success-emphasis'
+                        : 'bg-secondary-subtle text-secondary-emphasis'
                   }`}
                 >
-                  {course.status.replace("_", " ")}
+                  {course.status.replace('_', ' ')}
                 </span>
               </div>
 
               <div className="d-flex align-items-center gap-2">
                 <div className="flex-grow-1">
-                  <ProgressBar value={course.progress} />
+                  <ProgressBar value={course.progressPercent} />
                 </div>
                 <span className="small text-muted">
-                  {course.progress}%
+                  {course.progressPercent}%
                 </span>
               </div>
             </li>

@@ -1,9 +1,9 @@
 // src/components/dashboard/RecentActivity.tsx
 import React from "react";
-import { ActivityItem } from "../../types/dashboard";
+import { RecentActivityItem } from "../../types/dashboard.ts";
 
 interface RecentActivityProps {
-  items: ActivityItem[];
+  items: RecentActivityItem[];
 }
 
 const RecentActivity: React.FC<RecentActivityProps> = ({ items }) => (
@@ -16,8 +16,9 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ items }) => (
       ) : (
         <ul className="list-unstyled mb-0">
           {items.map((item) => (
-            <li key={item.id} className="mb-2">
-              <div className="small text-body">{item.description}</div>
+            <li key={item.timestamp} className="mb-2">
+              <div className="small bg-dark text-white">{item.title}</div>
+              <div className="small text-muted">{item.description}</div>
               <div className="small text-black-50">{item.timestamp}</div>
             </li>
           ))}

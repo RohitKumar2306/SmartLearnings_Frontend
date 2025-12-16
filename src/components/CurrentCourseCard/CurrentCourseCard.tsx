@@ -5,7 +5,7 @@ import ProgressBar from "../ProgressBar/ProgressBar.tsx";
 
 interface CurrentCourseCardProps {
   course: CourseSummary | null;
-  onContinue?: (courseId: number) => void;
+  onContinue?: (courseId: string) => void;
   onBrowseCourses?: () => void;
 }
 
@@ -42,19 +42,19 @@ const CurrentCourseCard: React.FC<CurrentCourseCardProps> = ({
           Pick up where you left off:
         </p>
 
-        <h3 className="h6 mb-2 text-muted">{course.title}</h3>
+        <h3 className="h6 mb-2 text-muted">{course.courseTitle}</h3>
         <div className="d-flex align-items-center gap-2 mb-3">
           <div className="flex-grow-1">
-            <ProgressBar value={course.progress} />
+            <ProgressBar value={course.progressPercent} />
           </div>
           <span className="small text-muted">
-            {course.progress}% complete
+            {course.progressPercent}% complete
           </span>
         </div>
 
         <button
           className="btn btn-primary btn-sm"
-          onClick={() => onContinue && onContinue(course.id)}
+          onClick={() => onContinue && onContinue(course.courseId)}
         >
           Continue course
         </button>
