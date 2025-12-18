@@ -1,0 +1,47 @@
+/* src/components/AdminEngagementSection/AdminEngagementSection.css */
+
+/* Reuse same admin section card styling for this panel */
+.admin-section-card {
+    background: radial-gradient(circle at top left, #0f172a, #020617);
+    border-radius: 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    box-shadow:
+            0 18px 40px rgba(15, 23, 42, 0.7),
+            0 0 0 1px rgba(15, 23, 42, 0.3);
+}
+
+/* Headings inside engagement section */
+.admin-mini-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(148, 163, 184, 0.9);
+}
+
+/* Metric lists */
+
+.admin-metric-list {
+    border-radius: 0.75rem;
+    border: 1px solid rgba(51, 65, 85, 0.8);
+    background-color: rgba(15, 23, 42, 0.7);
+}
+
+.admin-metric-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.35rem 0.75rem;
+    border-bottom: 1px solid rgba(30, 41, 59, 0.7);
+}
+
+.admin-metric-row:last-child {
+    border-bottom: none;
+}
+
+.admin-metric-label {
+    color: rgba(148, 163, 184, 0.95);
+}
+
+.admin-metric-value {
+    font-weight: 600;
+    color: #e5e7eb;
+}

@@ -1,6 +1,9 @@
 // src/service/DashboardService.ts
 import axios from "axios";
-import { StudentDashboardResponse } from "../types/dashboard";
+import {
+  AdminDashboardResponse,
+  StudentDashboardResponse,
+} from '../types/dashboard';
 
 // Base URL for backend
 const API_BASE_URL =
@@ -25,4 +28,8 @@ apiClient.interceptors.request.use((config) => {
 
 export const fetchStudentDashboard = () => {
   return apiClient.get<StudentDashboardResponse>("/dashboard/student");
+};
+
+export const fetchAdminDashboard = () => {
+  return apiClient.get<AdminDashboardResponse>("/dashboard/admin");
 };

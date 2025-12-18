@@ -145,3 +145,13 @@
         font-size: 1.5rem;
     }
 }
+
+/* page-level background variants */
+
+.admin-dashboard {
+    background: radial-gradient(circle at top, #020617, #000);
+}
+
+.student-dashboard {
+    background: linear-gradient(to bottom, #020617, #020617);
+}

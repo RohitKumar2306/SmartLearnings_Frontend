@@ -1,0 +1,32 @@
+/* src/components/AdminPendingActions/AdminPendingActions.css */
+
+/* Subsection spacing */
+.admin-subsection {
+    margin-top: 0.75rem;
+}
+
+/* Empty state box */
+.admin-empty-state {
+    border-radius: 0.75rem;
+    padding: 0.75rem 0.9rem;
+    background-color: rgba(15, 23, 42, 0.7);
+    border: 1px dashed rgba(148, 163, 184, 0.55);
+    color: rgba(148, 163, 184, 0.9);
+}
+
+/* Pending list container */
+.admin-pending-list {
+    border-radius: 0.75rem;
+    border: 1px solid rgba(51, 65, 85, 0.8);
+    background-color: rgba(15, 23, 42, 0.6);
+}
+
+/* Pending list items */
+.admin-pending-item {
+    padding: 0.55rem 0.9rem;
+    border-bottom: 1px solid rgba(30, 41, 59, 0.7);
+}
+
+.admin-pending-item:last-child {
+    border-bottom: none;
+}

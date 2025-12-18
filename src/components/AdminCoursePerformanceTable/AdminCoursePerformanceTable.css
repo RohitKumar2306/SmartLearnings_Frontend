@@ -1,0 +1,89 @@
+/* src/components/AdminCoursePerformanceTable/AdminCoursePerformanceTable.css */
+
+/* Scroll vertically inside the card */
+.admin-table-scroll {
+    width: 100%;
+    max-height: 260px;              /* same height as before */
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Slim vertical scrollbar */
+.admin-table-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.admin-table-scroll::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.9);
+}
+
+.admin-table-scroll::-webkit-scrollbar-thumb {
+    background: rgba(75, 85, 99, 0.9);
+    border-radius: 999px;
+}
+
+/* Base table styling – override Bootstrap white table */
+.admin-course-table .admin-table {
+    font-size: 0.8rem;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    background-color: transparent !important;
+    color: rgba(209, 213, 219, 0.92);
+}
+
+/* Header row */
+.admin-course-table .admin-table thead tr {
+    background-color: rgba(15, 23, 42, 0.98) !important;
+}
+
+.admin-course-table .admin-table thead th {
+    border-bottom: 1px solid rgba(51, 65, 85, 0.9);
+    color: rgba(226, 232, 240, 0.95);
+    font-weight: 600;
+    padding-top: 0.55rem;
+    padding-bottom: 0.55rem;
+}
+
+/* Body rows */
+.admin-course-table .admin-table tbody tr:nth-child(odd) {
+    background-color: rgba(15, 23, 42, 0.22) !important;
+}
+
+.admin-course-table .admin-table tbody tr:nth-child(even) {
+    background-color: rgba(15, 23, 42, 0.38) !important;
+}
+
+.admin-course-table .admin-table tbody tr:hover {
+    background-color: rgba(30, 64, 175, 0.35) !important;
+}
+
+.admin-course-table .admin-table tbody td {
+    border-top: 1px solid rgba(30, 41, 59, 0.7);
+}
+
+/* Status pill styling to match other admin badges */
+.admin-status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 88px;
+    padding: 0.22rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.admin-status-published {
+    background-color: rgba(22, 163, 74, 0.12);
+    color: #bbf7d0;
+    border: 1px solid rgba(34, 197, 94, 0.7);
+}
+
+.admin-status-unpublished {
+    background-color: rgba(148, 163, 184, 0.12);
+    color: #e5e7eb;
+    border: 1px solid rgba(148, 163, 184, 0.7);
+}
