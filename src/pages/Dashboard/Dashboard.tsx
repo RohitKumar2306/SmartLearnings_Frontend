@@ -240,10 +240,10 @@ const DashboardPage: React.FC = () => {
 
           {/* Top: overview + current course */}
           <div className="row g-3 mb-3">
-            <div className="col-12 col-lg-4">
+            <div className="col-12 col-lg-6">
               <StatsOverview stats={stats} />
             </div>
-            <div className="col-12 col-lg-8">
+            <div className="col-12 col-lg-6">
               <CurrentCourseCard
                 course={currentCourse}
                 onContinue={handleContinueCourse}

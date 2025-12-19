@@ -1,7 +1,7 @@
-// src/components/dashboard/CurrentCourseCard.tsx
 import React from "react";
 import { CourseSummary } from "../../types/dashboard";
 import ProgressBar from "../ProgressBar/ProgressBar.tsx";
+import "./CurrentCourseCard.css";
 
 interface CurrentCourseCardProps {
   course: CourseSummary | null;
@@ -16,15 +16,15 @@ const CurrentCourseCard: React.FC<CurrentCourseCardProps> = ({
                                                              }) => {
   if (!course) {
     return (
-      <section className="card card-glass text-light">
+      <section className="card current-course-card">
         <div className="card-body">
-          <h2 className="card-title h6 mb-2 text-dark">Continue learning</h2>
-          <p className="text-muted small mb-3">
+          <h2 className="current-course-title mb-2">Continue learning</h2>
+          <p className="current-course-subtitle mb-3">
             You haven&apos;t started any course yet. Browse the catalog to
             begin.
           </p>
           <button
-            className="btn btn-primary btn-sm"
+            className="btn btn-primary btn-sm current-course-btn"
             onClick={onBrowseCourses}
           >
             Browse courses
@@ -35,25 +35,25 @@ const CurrentCourseCard: React.FC<CurrentCourseCardProps> = ({
   }
 
   return (
-    <section className="card card-glass text-light">
+    <section className="card current-course-card">
       <div className="card-body">
-        <h2 className="card-title h6 mb-1 text-dark">Continue learning</h2>
-        <p className="text-muted small mb-3">
+        <h2 className="current-course-title mb-1">Continue learning</h2>
+        <p className="current-course-subtitle mb-3">
           Pick up where you left off:
         </p>
 
-        <h3 className="h6 mb-2 text-muted">{course.courseTitle}</h3>
+        <h3 className="current-course-name mb-2">{course.courseTitle}</h3>
         <div className="d-flex align-items-center gap-2 mb-3">
           <div className="flex-grow-1">
             <ProgressBar value={course.progressPercent} />
           </div>
-          <span className="small text-muted">
+          <span className="current-course-progress">
             {course.progressPercent}% complete
           </span>
         </div>
 
         <button
-          className="btn btn-primary btn-sm"
+          className="btn btn-primary btn-sm current-course-btn"
           onClick={() => onContinue && onContinue(course.courseId)}
         >
           Continue course

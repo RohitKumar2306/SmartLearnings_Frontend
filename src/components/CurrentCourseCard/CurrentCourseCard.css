@@ -1,0 +1,40 @@
+/* src/components/dashboard/CurrentCourseCard.css */
+
+.current-course-card {
+    border-radius: 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    background: radial-gradient(circle at top left, #0f172a, #020617);
+    color: #e5e7eb;
+    box-shadow:
+            0 18px 40px rgba(15, 23, 42, 0.8),
+            0 0 0 1px rgba(15, 23, 42, 0.4);
+}
+
+.current-course-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #f9fafb;
+}
+
+.current-course-subtitle {
+    font-size: 0.85rem;
+    color: rgba(148, 163, 184, 0.95);
+}
+
+.current-course-name {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #e5e7eb;
+}
+
+.current-course-progress {
+    font-size: 0.8rem;
+    color: rgba(156, 163, 175, 0.95);
+}
+
+.current-course-btn {
+    border-radius: 999px;
+    padding-inline: 18px;
+    font-weight: 500;
+    font-size: 0.9rem;
+}

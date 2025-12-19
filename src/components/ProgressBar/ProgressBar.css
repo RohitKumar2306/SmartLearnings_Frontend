@@ -1,0 +1,13 @@
+.ls-progress {
+    height: 6px;
+    border-radius: 999px;
+    overflow: hidden;
+    background-color: rgba(31, 41, 55, 0.9); /* dark track that still shows on card */
+}
+
+.ls-progress-bar {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #22c55e, #4ade80); /* neon green like admin */
+    transition: width 0.2s ease-out;
+}

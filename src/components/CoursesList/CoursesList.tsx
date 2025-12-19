@@ -1,7 +1,7 @@
-// src/components/dashboard/CoursesList.tsx
 import React from "react";
-import { CourseSummary } from "../../types/dashboard.ts";
+import { CourseSummary } from "../../types/dashboard";
 import ProgressBar from "../ProgressBar/ProgressBar.tsx";
+import "./CoursesList.css";
 
 interface CoursesListProps {
   courses: CourseSummary[];
@@ -9,52 +9,50 @@ interface CoursesListProps {
 }
 
 const CoursesList: React.FC<CoursesListProps> = ({
-  courses,
-  onSelectCourse,
-}) => (
-  <section className="card card-glass text-light">
+                                                   courses,
+                                                   onSelectCourse,
+                                                 }) => (
+  <section className="card courses-card">
     <div className="card-body">
-      <h2 className="card-title h6 mb-3 text-dark">Your Courses</h2>
+      <h2 className="courses-card-title mb-3">Your Courses</h2>
 
       {courses.length === 0 ? (
-        <p className="text-muted small mb-0 text-muted">
+        <p className="courses-empty small mb-0">
           You are not enrolled in any courses yet.
         </p>
       ) : (
-        <ul className="list-unstyled mb-0">
-          {courses.map((course) => (
-            <li
-              key={course.courseId}
-              className="py-2 border-bottom border-secondary-subtle text-muted"
-              style={{ cursor: onSelectCourse ? 'pointer' : 'default' }}
-              onClick={() => onSelectCourse && onSelectCourse(course.courseId)}
-            >
-              <div className="d-flex justify-content-between align-items-center mb-1">
-                <span className="fw-semibold small">{course.courseTitle}</span>
-                <span
-                  className={`badge rounded-pill text-capitalize ${
-                    course.status === 'IN_PROGRESS'
-                      ? 'bg-primary-subtle text-primary-emphasis'
-                      : course.status === 'COMPLETED'
-                        ? 'bg-success-subtle text-success-emphasis'
-                        : 'bg-secondary-subtle text-secondary-emphasis'
-                  }`}
-                >
-                  {course.status.replace('_', ' ')}
-                </span>
-              </div>
-
-              <div className="d-flex align-items-center gap-2">
-                <div className="flex-grow-1">
-                  <ProgressBar value={course.progressPercent} />
+        <div className="courses-scroll">
+          <ul className="list-unstyled mb-0 overflow-y-auto">
+            {courses.map((course) => (
+              <li
+                key={course.courseId}
+                className="courses-item"
+                style={{ cursor: onSelectCourse ? "pointer" : "default" }}
+                onClick={() => onSelectCourse && onSelectCourse(course.courseId)}
+              >
+                <div className="d-flex justify-content-between align-items-center mb-1">
+                  <span className="courses-item-title">
+                    {course.courseTitle}
+                  </span>
+                  <span
+                    className={`badge rounded-pill courses-status courses-status--${course.status.toLowerCase()}`}
+                  >
+                    {course.status.replace("_", " ")}
+                  </span>
                 </div>
-                <span className="small text-muted">
-                  {course.progressPercent}%
-                </span>
-              </div>
-            </li>
-          ))}
-        </ul>
+
+                <div className="d-flex align-items-center gap-2">
+                  <div className="flex-grow-1">
+                    <ProgressBar value={course.progressPercent} />
+                  </div>
+                  <span className="courses-item-progress small">
+                    {course.progressPercent}%
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   </section>
