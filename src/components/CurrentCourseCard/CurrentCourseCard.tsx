@@ -1,10 +1,10 @@
 import React from "react";
-import { CourseSummary } from "../../types/dashboard";
+import { ContinueLearningCard } from '../../types/dashboard';
 import ProgressBar from "../ProgressBar/ProgressBar.tsx";
 import "./CurrentCourseCard.css";
 
 interface CurrentCourseCardProps {
-  course: CourseSummary | null;
+  course: ContinueLearningCard | null;
   onContinue?: (courseId: string) => void;
   onBrowseCourses?: () => void;
 }
@@ -33,6 +33,8 @@ const CurrentCourseCard: React.FC<CurrentCourseCardProps> = ({
       </section>
     );
   }
+
+  console.log(course);
 
   return (
     <section className="card current-course-card">

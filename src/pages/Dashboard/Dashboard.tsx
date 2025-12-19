@@ -8,9 +8,9 @@ import RecentActivity from "../../components/RecentActivity/RecentActivity.tsx";
 import {
   DashboardStats,
   StudentDashboardResponse,
-  CourseSummary,
-  AdminDashboardResponse
-} from "../../types/dashboard.ts";
+  AdminDashboardResponse,
+  ContinueLearningCard,
+} from '../../types/dashboard.ts';
 import {
   fetchAdminDashboard,
   fetchStudentDashboard,
@@ -39,6 +39,8 @@ const DashboardPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean | null>(true);
   const [error, setError] = useState<string | null>(null);
   const [adminData, setAdminData] = useState<AdminDashboardResponse | null>(null);
+
+  console.log(data);
 
 
 /*  useEffect(() => {
@@ -174,8 +176,10 @@ const DashboardPage: React.FC = () => {
     // StatsOverview expects "stats"
     const stats: DashboardStats = data.overview;
 
+    const currentCourse: ContinueLearningCard | null = data.continueLearning;
+
     // CurrentCourseCard: adapt from continueLearning card
-    const currentCourse: CourseSummary | null = data.continueLearning
+    /*const currentCourse: CourseSummary | null = data.continueLearning
       ? (() => {
         // find full course info (status, lessons) from list by id
         const fromList = data.courses.find(
@@ -191,7 +195,7 @@ const DashboardPage: React.FC = () => {
           totalLessons: fromList?.totalLessons ?? 0,
         };
       })()
-      : null;
+      : null;*/
 
     // CoursesList: adapt from data.courses
     const courses = data.courses.map((c) => ({
