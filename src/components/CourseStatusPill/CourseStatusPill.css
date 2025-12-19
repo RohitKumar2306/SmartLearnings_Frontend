@@ -1,0 +1,41 @@
+.course-status-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 90px;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-width: 1px;
+    border-style: solid;
+}
+
+/* Published – green */
+.course-status-pill--published {
+    background-color: rgba(22, 163, 74, 0.1);
+    color: #bbf7d0;
+    border-color: rgba(22, 163, 74, 0.7);
+}
+
+/* Pending review – amber */
+.course-status-pill--pending {
+    background-color: rgba(252, 211, 77, 0.09);
+    color: #facc15;
+    border-color: rgba(234, 179, 8, 0.7);
+}
+
+/* Draft – gray */
+.course-status-pill--draft {
+    background-color: rgba(148, 163, 184, 0.12);
+    color: #e5e7eb;
+    border-color: rgba(148, 163, 184, 0.7);
+}
+
+/* Neutral fallback – for statuses like IN_PROGRESS, ARCHIVED, etc. */
+.course-status-pill--neutral {
+    background-color: rgba(51, 65, 85, 0.2);
+    color: rgba(226, 232, 240, 0.9);
+    border-color: rgba(75, 85, 99, 0.8);
+}

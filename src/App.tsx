@@ -6,6 +6,7 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import LoginPage from './pages/LoginPage/LoginPage.tsx';
 import SignUpPage from './pages/SignUpPage/SignUpPage.tsx';
 import { AppContext } from './context/AppContext.tsx';
+import Courses from './pages/Courses/Courses.tsx';
 
 const PrivateRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
   const { auth } = useContext(AppContext);
@@ -30,6 +31,7 @@ const App: React.FC = () => {
                         </PrivateRoute>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/courses" element={<Courses />} />
       </Routes>
     </div>
   );
