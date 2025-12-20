@@ -1,13 +1,4 @@
-.courses-toolbar {
-    border-radius: 1rem;
-    border: 1px solid rgba(148, 163, 184, 0.25);
-    background: radial-gradient(circle at top left, #020617, #020617);
-    box-shadow:
-            0 18px 40px rgba(15, 23, 42, 0.7),
-            0 0 0 1px rgba(15, 23, 42, 0.3);
-}
-
-/* header inside toolbar card */
+/* Header row: title + subtitle + count pill */
 
 .courses-toolbar-header {
     display: flex;
@@ -21,6 +12,7 @@
     font-size: 1rem;
     font-weight: 600;
     color: #e5e7eb;
+    letter-spacing: 0.02em;
 }
 
 .courses-toolbar-subtitle {
@@ -28,16 +20,27 @@
     color: rgba(148, 163, 184, 0.9);
 }
 
-/* pill showing "Showing X of Y courses" */
+/* Pill: "Showing X of Y courses" – matches dashboard-style pills */
 
 .courses-toolbar-count-pill {
     border-radius: 999px;
     font-size: 0.75rem;
     font-weight: 500;
     padding: 4px 12px;
-    background-color: rgba(15, 23, 42, 0.85);
+    background-color: rgba(15, 23, 42, 0.9);
     color: rgba(248, 250, 252, 0.9);
     border: 1px solid rgba(148, 163, 184, 0.55);
+    white-space: nowrap;
+}
+
+/* Labels above inputs */
+
+.courses-toolbar-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(148, 163, 184, 0.9);
+    margin-bottom: 4px;
 }
 
 /* Search field */
@@ -48,16 +51,16 @@
 
 .courses-toolbar-search-icon {
     position: absolute;
-    left: 0.9rem;
+    left: 0.85rem;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 0.9rem;
+    font-size: 0.7rem; /* a bit smaller */
     color: rgba(148, 163, 184, 0.9);
 }
 
 .courses-toolbar-search-input {
     width: 100%;
-    padding-left: 2.2rem;
+    padding-left: 2.1rem;
     padding-right: 1rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
@@ -80,14 +83,6 @@
 
 /* Status / Sort dropdowns */
 
-.courses-toolbar-label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: rgba(148, 163, 184, 0.9);
-    margin-bottom: 4px;
-}
-
 .courses-toolbar-select {
     width: 100%;
     border-radius: 999px;
@@ -109,7 +104,7 @@
     color: #e5e7eb;
 }
 
-/* small screens */
+/* Responsive tweaks */
 
 @media (max-width: 768px) {
     .courses-toolbar-header {

@@ -21,6 +21,56 @@ const MOCK_COURSES: AdminCourse[] = [
     lastUpdatedAt: "2025-12-15T08:10:00Z",
   },
   {
+    courseId: "JAVA_DSA_101",
+    title: "Java & DSA Foundations",
+    category: "Programming",
+    instructorName: "Rohit Kumar",
+    status: "PUBLISHED",
+    enrolledCount: 128,
+    createdAt: "2025-11-01T10:15:00Z",
+    lastUpdatedAt: "2025-12-15T08:10:00Z",
+  },
+  {
+    courseId: "JAVA_DSA_101",
+    title: "Java & DSA Foundations",
+    category: "Programming",
+    instructorName: "Rohit Kumar",
+    status: "PUBLISHED",
+    enrolledCount: 128,
+    createdAt: "2025-11-01T10:15:00Z",
+    lastUpdatedAt: "2025-12-15T08:10:00Z",
+  },
+  {
+    courseId: "JAVA_DSA_101",
+    title: "Java & DSA Foundations",
+    category: "Programming",
+    instructorName: "Rohit Kumar",
+    status: "PUBLISHED",
+    enrolledCount: 128,
+    createdAt: "2025-11-01T10:15:00Z",
+    lastUpdatedAt: "2025-12-15T08:10:00Z",
+  },
+  {
+    courseId: "JAVA_DSA_101",
+    title: "Java & DSA Foundations",
+    category: "Programming",
+    instructorName: "Rohit Kumar",
+    status: "PUBLISHED",
+    enrolledCount: 128,
+    createdAt: "2025-11-01T10:15:00Z",
+    lastUpdatedAt: "2025-12-15T08:10:00Z",
+  },
+  {
+    courseId: "JAVA_DSA_101",
+    title: "Java & DSA Foundations",
+    category: "Programming",
+    instructorName: "Rohit Kumar",
+    status: "PUBLISHED",
+    enrolledCount: 128,
+    createdAt: "2025-11-01T10:15:00Z",
+    lastUpdatedAt: "2025-12-15T08:10:00Z",
+  },
+  {
     courseId: "SPRING_BOOT_API",
     title: "Spring Boot REST APIs",
     category: "Backend",
@@ -197,40 +247,45 @@ const AdminCoursesPage: React.FC = () => {
           </button>
         </div>
 
-        {/* Toolbar (filters/search) */}
-        <div className="row g-3 mb-3">
+        {/* Combined card: toolbar + table */}
+        <div className="row g-3">
           <div className="col-12">
-            <CoursesToolbar
-              title="Manage courses"
-              subtitle="Search, filter, and review all courses."
-              searchTerm={searchTerm}
-              onSearchChange={setSearchTerm}
-              statusFilter={statusFilter}
-              onStatusChange={(value) =>
-                setStatusFilter(value as AdminCourseStatus | "ALL")
-              }
-              statusOptions={STATUS_OPTIONS}
-              sortBy={sortBy}
-              onSortChange={(value) => setSortBy(value as SortBy)}
-              sortOptions={SORT_OPTIONS}
-              totalCount={allCourses.length}
-              visibleCount={filteredCourses.length}
-            />
+            <section className="card card-glass admin-courses-card">
+              <div className="card-body">
+                {/* Toolbar (search / filters) */}
+                <CoursesToolbar
+                  // Do not display title and number of courses
+                  /*title="Manage Courses"
+                  subtitle="Search, filter, and review all courses."
+                  totalCount={allCourses.length}
+                  visibleCount={filteredCourses.length}*/
+                  searchTerm={searchTerm}
+                  onSearchChange={setSearchTerm}
+                  statusFilter={statusFilter}
+                  onStatusChange={(value) =>
+                    setStatusFilter(value as AdminCourseStatus | "ALL")
+                  }
+                  statusOptions={STATUS_OPTIONS}
+                  sortBy={sortBy}
+                  onSortChange={(value) => setSortBy(value as SortBy)}
+                  sortOptions={SORT_OPTIONS}
+                />
+
+                {/* Table */}
+                <div className="mt-3">
+                  <CoursesTable
+                    mode="admin"
+                    courses={filteredCourses}
+                    onOpenCourse={handleOpenCourse}
+                    onTogglePublish={handleTogglePublish}
+                    onOpenReview={handleOpenReview}
+                  />
+                </div>
+              </div>
+            </section>
           </div>
         </div>
 
-        {/* Table */}
-        <div className="row g-3">
-          <div className="col-12">
-            <CoursesTable
-              mode="admin"
-              courses={filteredCourses}
-              onOpenCourse={handleOpenCourse}
-              onTogglePublish={handleTogglePublish}
-              onOpenReview={handleOpenReview}
-            />
-          </div>
-        </div>
       </div>
     </div>
   );

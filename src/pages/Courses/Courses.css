@@ -1,8 +1,8 @@
 .admin-courses-root {
-    /* same vertical rhythm as dashboard */
     padding: 24px 0 40px;
 }
 
+/* Page header (top "Courses" title area) */
 .admin-courses-header {
     color: #e5e7eb;
 }
@@ -20,8 +20,7 @@
     max-width: 560px;
 }
 
-/* "+ New course" button – same pill style as other primary CTAs */
-
+/* "+ New course" button */
 .admin-courses-create-btn {
     border-radius: 999px;
     font-size: 0.9rem;
@@ -37,8 +36,20 @@
     transform: translateY(-1px);
 }
 
-/* small tweak for mobile */
+/* Outer card that wraps toolbar + table */
+.admin-courses-card {
+    border-radius: 22px;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    background: radial-gradient(circle at top, #020617, #020617);
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
+    color: #e5e7eb;
+}
 
+.admin-courses-card .card-body {
+    background: transparent;
+}
+
+/* mobile tweaks */
 @media (max-width: 768px) {
     .admin-courses-title {
         font-size: 1.2rem;
