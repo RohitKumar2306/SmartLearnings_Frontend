@@ -27,6 +27,17 @@ const MOCK_COURSES: AdminCourse[] = [
     tags: ["Java", "Spring Boot"],
   },
   {
+    courseId: "JAVA_DSA_101",
+    title: "Java & DSA Foundations",
+    category: "Programming",
+    instructorName: "Rohit Kumar",
+    status: "PUBLISHED",
+    enrolledCount: 128,
+    createdAt: "2025-11-01T10:15:00Z",
+    lastUpdatedAt: "2025-12-15T08:10:00Z",
+    tags: ["Java", "Spring Boot"],
+  },
+  {
     courseId: "SPRING_BOOT_API",
     title: "Spring Boot REST APIs",
     category: "Backend",
