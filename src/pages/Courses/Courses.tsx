@@ -3,12 +3,17 @@ import "./Courses.css";
 import CoursesToolbar, {StatusOption, SortOption} from "../../components/CoursesToolbar/CoursesToolbar.tsx";
 import CoursesTable from "../../components/CourseManagementTable/CourseManagementTable.tsx";
 import { ManagedCourse, CourseStatus } from "../../types/courses.ts";
+import CourseCategoryManager, {
+  CourseCategory,
+  CourseTag,
+} from '../../components/CourseCategoryManager/CourseCategoryManager.tsx';
+import CourseMetadataDrawer from '../../components/CourseMetadataDrawer/CourseMetadataDrawer.tsx';
 
 export type AdminCourseStatus = CourseStatus;
 
 export type AdminCourse = ManagedCourse;
 
-// Temporary mock data – replace with API response later
+// --- TEMP MOCK DATA (courses) ---
 const MOCK_COURSES: AdminCourse[] = [
   {
     courseId: "JAVA_DSA_101",
@@ -19,56 +24,7 @@ const MOCK_COURSES: AdminCourse[] = [
     enrolledCount: 128,
     createdAt: "2025-11-01T10:15:00Z",
     lastUpdatedAt: "2025-12-15T08:10:00Z",
-  },
-  {
-    courseId: "JAVA_DSA_101",
-    title: "Java & DSA Foundations",
-    category: "Programming",
-    instructorName: "Rohit Kumar",
-    status: "PUBLISHED",
-    enrolledCount: 128,
-    createdAt: "2025-11-01T10:15:00Z",
-    lastUpdatedAt: "2025-12-15T08:10:00Z",
-  },
-  {
-    courseId: "JAVA_DSA_101",
-    title: "Java & DSA Foundations",
-    category: "Programming",
-    instructorName: "Rohit Kumar",
-    status: "PUBLISHED",
-    enrolledCount: 128,
-    createdAt: "2025-11-01T10:15:00Z",
-    lastUpdatedAt: "2025-12-15T08:10:00Z",
-  },
-  {
-    courseId: "JAVA_DSA_101",
-    title: "Java & DSA Foundations",
-    category: "Programming",
-    instructorName: "Rohit Kumar",
-    status: "PUBLISHED",
-    enrolledCount: 128,
-    createdAt: "2025-11-01T10:15:00Z",
-    lastUpdatedAt: "2025-12-15T08:10:00Z",
-  },
-  {
-    courseId: "JAVA_DSA_101",
-    title: "Java & DSA Foundations",
-    category: "Programming",
-    instructorName: "Rohit Kumar",
-    status: "PUBLISHED",
-    enrolledCount: 128,
-    createdAt: "2025-11-01T10:15:00Z",
-    lastUpdatedAt: "2025-12-15T08:10:00Z",
-  },
-  {
-    courseId: "JAVA_DSA_101",
-    title: "Java & DSA Foundations",
-    category: "Programming",
-    instructorName: "Rohit Kumar",
-    status: "PUBLISHED",
-    enrolledCount: 128,
-    createdAt: "2025-11-01T10:15:00Z",
-    lastUpdatedAt: "2025-12-15T08:10:00Z",
+    tags: ["Java", "Spring Boot"],
   },
   {
     courseId: "SPRING_BOOT_API",
@@ -79,6 +35,7 @@ const MOCK_COURSES: AdminCourse[] = [
     enrolledCount: 42,
     createdAt: "2025-12-10T14:32:00Z",
     lastUpdatedAt: "2025-12-16T12:10:00Z",
+    tags: ["Java", "Python"],
   },
   {
     courseId: "ALGO_PATTERNS",
@@ -89,7 +46,22 @@ const MOCK_COURSES: AdminCourse[] = [
     enrolledCount: 0,
     createdAt: "2025-12-05T09:00:00Z",
     lastUpdatedAt: "2025-12-12T11:55:00Z",
+    tags: ["Java", "Python"],
   },
+];
+
+// --- TEMP MOCK DATA (categories / tags) ---
+const INITIAL_CATEGORIES: CourseCategory[] = [
+  { id: "cat_programming", name: "Programming" },
+  { id: "cat_backend", name: "Backend" },
+  { id: "cat_algorithms", name: "Algorithms" },
+];
+
+const INITIAL_TAGS: CourseTag[] = [
+  { id: "tag_java", name: "Java", categoryId: "cat_programming" },
+  { id: "tag_spring", name: "Spring Boot", categoryId: "cat_backend" },
+  { id: "tag_dsa", name: "Data Structures", categoryId: "cat_algorithms" },
+  { id: "tag_interview", name: "Interview Prep" },
 ];
 
 const STATUS_OPTIONS: StatusOption[] = [
@@ -118,6 +90,17 @@ const AdminCoursesPage: React.FC = () => {
   );
   const [sortBy, setSortBy] = useState<SortBy>("recent");
 
+  // categories & tags
+  const [categories, setCategories] = useState<CourseCategory[]>(
+    INITIAL_CATEGORIES
+  );
+  const [tags, setTags] = useState<CourseTag[]>(INITIAL_TAGS);
+  const [isCategoryManagerOpen, setIsCategoryManagerOpen] =
+    useState<boolean>(false);
+
+  // For categories and tags
+  const [editingCourse, setEditingCourse] = useState<AdminCourse | null>(null);
+
   // Simulated fetch – plug in your real API here later
   useEffect(() => {
     setLoading(true);
@@ -133,23 +116,20 @@ const AdminCoursesPage: React.FC = () => {
   const filteredCourses = useMemo(() => {
     let list = [...allCourses];
 
-    // Search filter
     if (searchTerm.trim()) {
       const q = searchTerm.trim().toLowerCase();
       list = list.filter(
         (c) =>
           c.title.toLowerCase().includes(q) ||
-          c.courseId.toLowerCase().includes(q) /*||
-          c.instructorName.toLowerCase().includes(q)*/ // Add later when developing instructor copurses page
+          c.courseId.toLowerCase().includes(q)
+        // later you can add instructorName / tags here
       );
     }
 
-    // Status filter
     if (statusFilter !== "ALL") {
       list = list.filter((c) => c.status === statusFilter);
     }
 
-    // Sorting
     list.sort((a, b) => {
       if (sortBy === "recent") {
         return (
@@ -170,8 +150,16 @@ const AdminCoursesPage: React.FC = () => {
   }, [allCourses, searchTerm, statusFilter, sortBy]);
 
   const handleOpenCourse = (courseId: string) => {
-    console.log("Open course detail:", courseId);
-    // later: navigate(`/admin/courses/${courseId}`);
+    const found = allCourses.find((c) => c.courseId === courseId);
+    if (found) {
+      setEditingCourse(found);
+    }
+  };
+
+  const handleSaveCourseMetadata = (updated: AdminCourse) => {
+    setAllCourses((prev) =>
+      prev.map((c) => (c.courseId === updated.courseId ? updated : c))
+    );
   };
 
   const handleTogglePublish = (course: AdminCourse) => {
@@ -180,7 +168,6 @@ const AdminCoursesPage: React.FC = () => {
       course.courseId
     );
 
-    // Front-end only: optimistic toggle
     setAllCourses((prev) =>
       prev.map((c) =>
         c.courseId === course.courseId
@@ -198,12 +185,44 @@ const AdminCoursesPage: React.FC = () => {
 
   const handleOpenReview = (course: AdminCourse) => {
     console.log("Open review drawer / modal for:", course.courseId);
-    // later: open side panel/modal with full course info, accept/reject, notes, etc.
   };
 
   const handleCreateCourseClick = () => {
     console.log("Go to create course wizard");
-    // later: navigate("/admin/courses/new")
+  };
+
+  // ---- category & tag handlers (front-end only) ----
+  const handleCreateCategory = (name: string) => {
+    const trimmed = name.trim();
+    if (!trimmed) return;
+
+    setCategories((prev) => [
+      ...prev,
+      { id: `cat_${Date.now()}`, name: trimmed },
+    ]);
+  };
+
+  const handleDeleteCategory = (id: string) => {
+    setCategories((prev) => prev.filter((c) => c.id !== id));
+    setTags((prev) =>
+      prev.map((t) =>
+        t.categoryId === id ? { ...t, categoryId: undefined } : t
+      )
+    );
+  };
+
+  const handleCreateTag = (name: string, categoryId?: string) => {
+    const trimmed = name.trim();
+    if (!trimmed) return;
+
+    setTags((prev) => [
+      ...prev,
+      { id: `tag_${Date.now()}`, name: trimmed, categoryId },
+    ]);
+  };
+
+  const handleDeleteTag = (id: string) => {
+    setTags((prev) => prev.filter((t) => t.id !== id));
   };
 
   if (loading) {
@@ -238,13 +257,23 @@ const AdminCoursesPage: React.FC = () => {
               catalog healthy.
             </p>
           </div>
-          <button
-            type="button"
-            className="btn btn-primary btn-sm admin-courses-create-btn mt-3 mt-md-0"
-            onClick={handleCreateCourseClick}
-          >
-            + New course
-          </button>
+
+          <div className="admin-courses-header-actions mt-3 mt-md-0">
+            <button
+              type="button"
+              className="btn btn-outline-light btn-sm admin-courses-manage-btn mb-2 mb-md-0 me-md-2"
+              onClick={() => setIsCategoryManagerOpen(true)}
+            >
+              Manage categories
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary btn-sm admin-courses-create-btn"
+              onClick={handleCreateCourseClick}
+            >
+              + New course
+            </button>
+          </div>
         </div>
 
         {/* Combined card: toolbar + table */}
@@ -252,13 +281,9 @@ const AdminCoursesPage: React.FC = () => {
           <div className="col-12">
             <section className="card card-glass admin-courses-card">
               <div className="card-body">
-                {/* Toolbar (search / filters) */}
                 <CoursesToolbar
-                  // Do not display title and number of courses
-                  /*title="Manage Courses"
+                  title="Manage courses"
                   subtitle="Search, filter, and review all courses."
-                  totalCount={allCourses.length}
-                  visibleCount={filteredCourses.length}*/
                   searchTerm={searchTerm}
                   onSearchChange={setSearchTerm}
                   statusFilter={statusFilter}
@@ -269,9 +294,10 @@ const AdminCoursesPage: React.FC = () => {
                   sortBy={sortBy}
                   onSortChange={(value) => setSortBy(value as SortBy)}
                   sortOptions={SORT_OPTIONS}
+                  totalCount={allCourses.length}
+                  visibleCount={filteredCourses.length}
                 />
 
-                {/* Table */}
                 <div className="mt-3">
                   <CoursesTable
                     mode="admin"
@@ -285,8 +311,30 @@ const AdminCoursesPage: React.FC = () => {
             </section>
           </div>
         </div>
-
       </div>
+
+      {/* Side drawer for categories & tags */}
+      <CourseCategoryManager
+        open={isCategoryManagerOpen}
+        onClose={() => setIsCategoryManagerOpen(false)}
+        categories={categories}
+        tags={tags}
+        onCreateCategory={handleCreateCategory}
+        onDeleteCategory={handleDeleteCategory}
+        onCreateTag={handleCreateTag}
+        onDeleteTag={handleDeleteTag}
+      />
+
+      {/* Adding tags to courses */}
+      <CourseMetadataDrawer
+        open={!!editingCourse}
+        onClose={() => setEditingCourse(null)}
+        course={editingCourse}
+        categories={categories}
+        tags={tags}
+        onSave={handleSaveCourseMetadata}
+      />
+
     </div>
   );
 };

@@ -29,9 +29,13 @@ const App: React.FC = () => {
                element={<PrivateRoute>
                           <Dashboard />
                         </PrivateRoute>} />
+        <Route path="/courses"
+               element={<PrivateRoute>
+                 <Courses />
+               </PrivateRoute>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/courses" element={<Courses />} />
+        {/*<Route path="/courses" element={<Courses />} />*/}
       </Routes>
     </div>
   );

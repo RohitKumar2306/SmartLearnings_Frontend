@@ -9,6 +9,7 @@ export interface ManagedCourse {
   enrolledCount: number;
   createdAt: string;
   lastUpdatedAt: string;
+  tags: string[];
 }
 
 export type CoursesTableMode = "admin" | "instructor";
